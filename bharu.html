@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Wishes</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      animation: floating 5s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+      width: 450px;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    .card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #ff4b2b;
+      margin-bottom: 10px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    p {
+      font-size: 20px;
+      color: #555;
+      margin-top: 10px;
+      opacity: 0;
+      animation: slideIn 2s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(30px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .falling-gift {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      background-color: #ffeb3b;
+      border-radius: 10px;
+      animation: fall 4s linear infinite;
+      animation-delay: calc(-4s + (random() * 2) + "s");
+    }
+
+    @keyframes fall {
+      0% { top: -50px; }
+      100% { top: 100vh; }
+    }
+
+    .falling-gift:nth-child(odd) {
+      animation-delay: calc(-2s + (random() * 3) + "s");
+      background-color: #ff4081;
+    }
+
+    .falling-gift:nth-child(even) {
+      animation-delay: calc(-3s + (random() * 5) + "s");
+      background-color: #3f51b5;
+    }
+
+    .falling-gift:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      background-color: white;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes colorChange {
+      0% { color: #ff4b2b; }
+      50% { color: #ff416c; }
+      100% { color: #ff4b2b; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <img id="wishImage" src="bharu3.jpg" alt="Birthday Wish">
+  <h1 id="wishTitle">Happy Birthday!</h1>
+  <p id="wishMessage">Wishing you a day filled with joy, love, and laughter!</p>
+</div>
+
+<!-- Falling gifts -->
+<div class="falling-gift" style="left: 20%"></div>
+<div class="falling-gift" style="left: 40%"></div>
+<div class="falling-gift" style="left: 60%"></div>
+<div class="falling-gift" style="left: 80%"></div>
+
+<script>
+  const wishes = [
+    {
+      image: 'bharu3.jpg',
+      title: 'Happy Birthday!',
+      message: 'Wishing you a day filled with joy, love, and laughter!'
+    },
+    {
+      image: 'bhuru2.jpg',
+      title: 'Shine Bright!',
+      message: 'May your year ahead sparkle with happiness and success!'
+    },
+    {
+      image: 'bharu1.jpg',
+      title: 'Shine Bright!',
+      message: 'This wish is from your brother, Pavan!'
+    }
+  ];
+
+  let currentWish = 0;
+
+  function showNextWish() {
+    const card = document.getElementById('card');
+    card.style.opacity = 0; // Fade out
+    setTimeout(() => {
+      currentWish = (currentWish + 1) % wishes.length;
+      document.getElementById('wishImage').src = wishes[currentWish].image;
+      document.getElementById('wishTitle').textContent = wishes[currentWish].title;
+      document.getElementById('wishMessage').textContent = wishes[currentWish].message;
+      card.style.opacity = 1; // Fade in
+    }, 500);
+  }
+
+  // Automatically change wish every 6 seconds
+  setInterval(showNextWish, 6000); 
+</script>
+
+</body>
+</html>
